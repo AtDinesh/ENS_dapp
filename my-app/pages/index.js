@@ -55,7 +55,29 @@ export default function Home() {
   return needSigner ? signer : web3Provider;
   };
 
+  const connectWallet = async () => {
+    try {
+      // Get the provider (= metamask)
+      await getProviderOrSigner(false);
+      setWalletConnected(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // renderButton: Returns a button based on the state of the dapp
+  const renderButton = () => {
+    if (walletConnected) { // only display that wallet is connected
+      <div>Wallet connected</div>
+    } else {
+      return (  // display connectWallet button
+      <button onClick={connectWallet} className={styles.button}>
+        Connect your wallet
+      </button>
+      );
+    }
+  };
 
 
-
+  
 }
