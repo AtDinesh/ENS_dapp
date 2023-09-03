@@ -78,6 +78,42 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    // if wallet is not connected, create a new instance of Web3Modal and connect the MetaMask wallet
+    if (!walletConnected) {
+      // Assign the Web3Modal class to the reference object by setting it's `current` value
+      // The `current` value is persisted throughout as long as this page is open
+      web3ModalRef.current = new Web3Modal({
+        network: "goerli",
+        providerOptions: {},
+        disableInjectedProvider: false,
+      });
+      connectWallet();
+    }
+  }, [walletConnected]);
 
-  
+  return (
+    <div>
+      <Head>
+        <title>ENS_Dapp</title>
+        <meta name="description" content="ENS-Dapp" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className={styles.main}>
+        <div>
+          <h1 className={styles.title}>
+            Welcome {ens ? ens : walletAddress}!
+          </h1>
+          <div className={styles.description}>
+            {/* Using HTML Entities for the apostrophe */}
+            Get ready for cute battles !
+          </div>
+          {renderButton()}
+        </div>
+        <div>
+          <img className={styles.image} src="./patapon.png" />
+        </div>
+      </div>
+    </div>
+  );
 }
