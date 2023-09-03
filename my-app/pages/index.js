@@ -52,8 +52,10 @@ export default function Home() {
   const walletAddress = await signer.getAddress();
   // determine whether it has an ens
   await setENSOrAddress(walletAddress, web3Provider);
-  return signer;
+  return needSigner ? signer : web3Provider;
   };
+
+
 
 
 }
